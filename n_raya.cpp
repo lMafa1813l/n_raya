@@ -31,46 +31,46 @@ public:
 	}
 	
 	int minimax(Nodo* nodo, int profundidad, int alfa, int beta, bool esMaximizador) {
-        if (checkVictory(nodo->tablero, 'O')) {
-            return 10 + profundidad;
-        }
-        if (checkVictory(nodo->tablero, 'X')) {
-            return -10 - profundidad;
-        }
-        if (tableroLleno(nodo->tablero) {
-            return 0;
-        }
-        if (profundidad == 0) {
-            return 0;
-        }
-        if (esMaximizador) {
-            int mejorValor = -1000;
-            generarHijos(nodo, 'O');
-            for (Nodo* hijo : nodo->hijos) {
-                int valor = minimax(hijo, profundidad - 1, alfa, beta, false);
-                mejorValor = max(mejorValor, valor);
-                alfa = max(alfa, mejorValor);
-                if (beta <= alfa) {
-                    break;
-                }
-            }
-            nodo->valor = mejorValor;
-            return mejorValor;
-        } else {
-            int mejorValor = 1000;
-            generarHijos(nodo, 'X');
-            for (Nodo* hijo : nodo->hijos) {
-                int valor = minimax(hijo, profundidad - 1, alfa, beta, true);
-                mejorValor = min(mejorValor, valor);
-                beta = min(beta, mejorValor);
-                if (beta <= alfa) {
-                    break;
-                }
-            }
-            nodo->valor = mejorValor;
-            return mejorValor;
-        }
-    }
+	        if (checkVictory(nodo->tablero, 'O')) {
+	            return 10 + profundidad;
+	        }
+	        if (checkVictory(nodo->tablero, 'X')) {
+	            return -10 - profundidad;
+	        }
+	        if (tableroLleno(nodo->tablero) {
+	            return 0;
+	        }
+	        if (profundidad == 0) {
+	            return 0;
+	        }
+	        if (esMaximizador) {
+	            int mejorValor = -1000;
+	            generarHijos(nodo, 'O');
+	            for (Nodo* hijo : nodo->hijos) {
+	                int valor = minimax(hijo, profundidad - 1, alfa, beta, false);
+	                mejorValor = max(mejorValor, valor);
+	                alfa = max(alfa, mejorValor);
+	                if (beta <= alfa) {
+	                    break;
+	                }
+	            }
+	            nodo->valor = mejorValor;
+	            return mejorValor;
+	        } else {
+	            int mejorValor = 1000;
+	            generarHijos(nodo, 'X');
+	            for (Nodo* hijo : nodo->hijos) {
+	                int valor = minimax(hijo, profundidad - 1, alfa, beta, true);
+	                mejorValor = min(mejorValor, valor);
+	                beta = min(beta, mejorValor);
+	                if (beta <= alfa) {
+	                    break;
+	                }
+	            }
+	            nodo->valor = mejorValor;
+	            return mejorValor;
+	        }
+	}
 	
 	void generarHijos(Nodo* nodo, char proximoJugador) {
 		int tam = nodo->tablero.size();
@@ -87,22 +87,21 @@ public:
 	}
 	
 	pair<int, int> obtenerMejorMovimiento(int profundidad) {
-        int mejorValor = -1000;
-        pair<int, int> mejorMovimiento = {-1, -1};
-        generarHijos(raiz, 'O');
-        for (Nodo* hijo : raiz->hijos) {
-            int valor = minimax(hijo, profundidad - 1, -1000, 1000, false);
-            if (valor > mejorValor) {
-                mejorValor = valor;
-                mejorMovimiento = encontrarDiferencia(raiz->tablero, hijo->tablero);
-            }
-            if (mejorValor >= 10) {
-                break;
-            }
-        }
-        
-        return mejorMovimiento;
-    }
+	        int mejorValor = -1000;
+	        pair<int, int> mejorMovimiento = {-1, -1};
+	        generarHijos(raiz, 'O');
+	        for (Nodo* hijo : raiz->hijos) {
+	            int valor = minimax(hijo, profundidad - 1, -1000, 1000, false);
+	            if (valor > mejorValor) {
+	                mejorValor = valor;
+	                mejorMovimiento = encontrarDiferencia(raiz->tablero, hijo->tablero);
+	            }
+	            if (mejorValor >= 10) {
+	                break;
+	            }
+	        }
+	        return mejorMovimiento;
+	}
 	
 	pair<int, int> encontrarDiferencia(vector<vector<char>> a, vector<vector<char>> b) {
 		int tam = a.size();
